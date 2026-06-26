@@ -1,3 +1,5 @@
+-- select * from citibike_trips limit 10;
+
 -- Question 1: How does CitiBike station utilization vary by time of day and day of week,
 --             and what does that reveal about commuter vs recreational usage patterns?
 
@@ -78,20 +80,18 @@ group by member_casual, start_station_name
 order by total_rides desc;
 
 
--- Question 3: How well is CitiBike infrastructure distributed across Jersey City based on ride demand?
+-- Question 3: How well is CitiBike infrastructure distributed across Jersey City area based on ride demand?
 
 -- Question 3.a: Which stations show the highest bike flow imbalance relative to their total ride volume?
 
 WITH departures AS (
     select start_station_name, count(*) as total_rides, started_at::date as started_date, to_char(started_at,'Day') as start_day
     from citibike_trips
-    where start_station_id like 'JC%'
     group by start_station_name, started_date, start_day
 ),
 arrivals AS (
     select end_station_name, count(*) as total_rides, ended_at::date as ended_date, to_char(ended_at,'Day') as end_day
     from citibike_trips
-    where end_station_id like 'JC%'
     group by end_station_name, ended_date, end_day
 ),
 flow AS (
