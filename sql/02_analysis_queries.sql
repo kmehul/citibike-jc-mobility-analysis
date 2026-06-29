@@ -1,4 +1,4 @@
--- select * from citibike_trips limit 10;
+select * from citibike_trips limit 10;
 
 -- Question 1: How does CitiBike station utilization vary by time of day and day of week,
 --             and what does that reveal about commuter vs recreational usage patterns?
@@ -39,7 +39,7 @@ order by total_rides desc;
 
 
 -- Question 2: How do member and casual riders differ in behavior,
---            and what does that imply for infrastructure and pricing decisions?
+--             and what does that imply for infrastructure decisions?
 
 -- Question 2.a: Ride duration by rider type?
 
