@@ -1,4 +1,6 @@
-select * from citibike_trips limit 10;
+--Checking the structure of the imported data
+--select * from citibike_trips limit 10;
+
 
 -- Question 1: How does CitiBike station utilization vary by time of day and day of week,
 --             and what does that reveal about commuter vs recreational usage patterns?
@@ -118,6 +120,19 @@ ORDER BY average_imbalance desc;
 
 -- Question 3.c: Which areas have a higher concentration of stations and which areas are less densely covered?
 -- Will be covered with tableau.
+
+--Added a CTE to check if latitudes or longitudes are differing for any given station in the data
+WITH coordinates AS
+(select start_station_name as station_name, start_lat as latitude, start_lng as longitude
+from citibike_trips
+UNION
+select end_station_name, end_lat, end_lng
+from citibike_trips
+)
+SELECT station_name, min(latitude), max(latitude), min(longitude), max(longitude)
+from coordinates
+GROUP BY station_name;
+--There is no variance in the coordinate data. So it is clean and ready for the tableau visualization
 
 
 -- Question 4: How does ride duration vary by hour and day of week,
